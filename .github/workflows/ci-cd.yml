@@ -71,10 +71,16 @@ jobs:
         echo "Branch: ${{ github.ref_name }}" >> dist/build-info.txt
         echo "Author: florian-hunter.de" >> dist/build-info.txt
         
+    - name: Debug FTP Configuration
+      run: |
+        echo "FTP_HOST is set: ${{ secrets.FTP_SERVER != '' }}"
+        echo "FTP_USERNAME is set: ${{ secrets.FTP_USERNAME != '' }}"
+        echo "FTP_PASSWORD is set: ${{ secrets.FTP_PASSWORD != '' }}"
+        
     - name: Deploy to FTP Server
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ${{ secrets.FTP_HOST }}
+        server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./dist/
