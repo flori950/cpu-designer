@@ -1,0 +1,76 @@
+{
+  "components": [
+    {
+      "id": "cpu_core",
+      "type": "alu",
+      "x": 300,
+      "y": 200,
+      "icon": "🧮",
+      "label": "ALU"
+    },
+    {
+      "id": "register_a",
+      "type": "register",
+      "x": 150,
+      "y": 150,
+      "icon": "📝",
+      "label": "Register A"
+    },
+    {
+      "id": "register_b",
+      "type": "register",
+      "x": 150,
+      "y": 250,
+      "icon": "📝",
+      "label": "Register B"
+    },
+    {
+      "id": "memory_unit",
+      "type": "memory",
+      "x": 500,
+      "y": 200,
+      "icon": "💾",
+      "label": "Memory"
+    },
+    {
+      "id": "control_unit",
+      "type": "control-unit",
+      "x": 300,
+      "y": 100,
+      "icon": "🎛️",
+      "label": "Control Unit"
+    }
+  ],
+  "connections": [
+    {
+      "from": "register_a",
+      "to": "cpu_core",
+      "fromPoint": "out",
+      "toPoint": "in1"
+    },
+    {
+      "from": "register_b",
+      "to": "cpu_core",
+      "fromPoint": "out",
+      "toPoint": "in2"
+    },
+    {
+      "from": "cpu_core",
+      "to": "memory_unit",
+      "fromPoint": "out",
+      "toPoint": "in"
+    },
+    {
+      "from": "control_unit",
+      "to": "cpu_core",
+      "fromPoint": "control",
+      "toPoint": "control"
+    }
+  ],
+  "timestamp": "2025-09-02T12:28:00.000Z",
+  "metadata": {
+    "name": "Simple Processor Example",
+    "description": "A basic processor design with ALU, registers, memory, and control unit",
+    "version": "1.0"
+  }
+}

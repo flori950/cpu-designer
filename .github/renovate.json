@@ -1,0 +1,58 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":automergeDigest",
+    ":automergeBranch"
+  ],
+  "timezone": "Europe/Berlin",
+  "schedule": ["before 6am on Monday"],
+  "labels": ["dependencies"],
+  "assignees": ["flori950"],
+  "reviewers": ["flori950"],
+  "packageRules": [
+    {
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "labels": ["major-update"],
+      "reviewers": ["flori950"]
+    },
+    {
+      "matchPackageNames": ["vite", "vitest"],
+      "groupName": "build tools"
+    },
+    {
+      "matchPackageNames": ["eslint", "prettier", "husky", "lint-staged"],
+      "groupName": "linting tools"
+    },
+    {
+      "matchPackageNames": ["@testing-library/*"],
+      "groupName": "testing libraries"
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "automerge": true
+  },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 6am on Monday"]
+  },
+  "prConcurrentLimit": 3,
+  "prHourlyLimit": 2,
+  "commitMessagePrefix": "chore:",
+  "commitMessageAction": "update",
+  "commitMessageTopic": "{{depName}}",
+  "prTitle": "{{commitMessagePrefix}} {{commitMessageAction}} {{commitMessageTopic}} to {{newVersion}}",
+  "branchPrefix": "renovate/",
+  "gitAuthor": "Renovate Bot <renovate@florian-hunter.de>"
+}

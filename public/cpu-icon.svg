@@ -1,0 +1,36 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- CPU Base -->
+  <rect x="6" y="6" width="20" height="20" rx="2" fill="#2563eb" stroke="#1d4ed8" stroke-width="1"/>
+  
+  <!-- Pins on sides -->
+  <rect x="2" y="8" width="4" height="2" fill="#6b7280"/>
+  <rect x="2" y="12" width="4" height="2" fill="#6b7280"/>
+  <rect x="2" y="16" width="4" height="2" fill="#6b7280"/>
+  <rect x="2" y="20" width="4" height="2" fill="#6b7280"/>
+  
+  <rect x="26" y="8" width="4" height="2" fill="#6b7280"/>
+  <rect x="26" y="12" width="4" height="2" fill="#6b7280"/>
+  <rect x="26" y="16" width="4" height="2" fill="#6b7280"/>
+  <rect x="26" y="20" width="4" height="2" fill="#6b7280"/>
+  
+  <rect x="8" y="2" width="2" height="4" fill="#6b7280"/>
+  <rect x="12" y="2" width="2" height="4" fill="#6b7280"/>
+  <rect x="16" y="2" width="2" height="4" fill="#6b7280"/>
+  <rect x="20" y="2" width="2" height="4" fill="#6b7280"/>
+  
+  <rect x="8" y="26" width="2" height="4" fill="#6b7280"/>
+  <rect x="12" y="26" width="2" height="4" fill="#6b7280"/>
+  <rect x="16" y="26" width="2" height="4" fill="#6b7280"/>
+  <rect x="20" y="26" width="2" height="4" fill="#6b7280"/>
+  
+  <!-- CPU Core -->
+  <rect x="10" y="10" width="12" height="12" rx="1" fill="#1e40af"/>
+  
+  <!-- Internal circuits -->
+  <rect x="12" y="12" width="8" height="2" fill="#3b82f6"/>
+  <rect x="12" y="15" width="6" height="2" fill="#3b82f6"/>
+  <rect x="12" y="18" width="8" height="2" fill="#3b82f6"/>
+  
+  <!-- Core dot -->
+  <circle cx="16" cy="16" r="1" fill="#60a5fa"/>
+</svg>

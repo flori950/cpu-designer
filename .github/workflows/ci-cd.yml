@@ -1,0 +1,102 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run linting
+      run: npm run lint
+      
+    - name: Run tests
+      run: npm run test:run
+      
+    - name: Run build
+      run: npm run build
+      
+    - name: Upload test coverage
+      uses: codecov/codecov-action@v4
+      if: matrix.node-version == '20.x'
+      with:
+        file: ./coverage/lcov.info
+        fail_ci_if_error: false
+
+  build-and-deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build project
+      run: npm run build
+      
+    - name: Generate build info
+      run: |
+        echo "Build Date: $(date)" > dist/build-info.txt
+        echo "Commit: ${{ github.sha }}" >> dist/build-info.txt
+        echo "Branch: ${{ github.ref_name }}" >> dist/build-info.txt
+        echo "Author: florian-hunter.de" >> dist/build-info.txt
+        
+    - name: Deploy to FTP Server
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./dist/
+        server-dir: /public_html/processor-design-tool/
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          **/.DS_Store
+          **/Thumbs.db
+        
+    - name: Create deployment notification
+      if: success()
+      run: |
+        echo "🚀 Deployment successful!"
+        echo "📅 Deployed at: $(date)"
+        echo "🔗 URL: https://florian-hunter.de/processor-design-tool/"
+        echo "📝 Commit: ${{ github.sha }}"
+        
+    - name: Notify on failure
+      if: failure()
+      run: |
+        echo "❌ Deployment failed!"
+        echo "📅 Failed at: $(date)"
+        echo "📝 Commit: ${{ github.sha }}"
