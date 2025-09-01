@@ -78,7 +78,7 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./dist/
-        server-dir: /public_html/processor-design-tool/
+        server-dir: /cpu/
         exclude: |
           **/.git*
           **/.git*/**
@@ -91,7 +91,7 @@ jobs:
       run: |
         echo "🚀 Deployment successful!"
         echo "📅 Deployed at: $(date)"
-        echo "🔗 URL: https://florian-hunter.de/processor-design-tool/"
+        echo "🔗 URL: https://florian-hunter.de/cpu/"
         echo "📝 Commit: ${{ github.sha }}"
         
     - name: Notify on failure

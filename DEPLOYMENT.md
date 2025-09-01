@@ -3,7 +3,7 @@
 
 ## FTP Server Configuration
 - **Host**: Your FTP server hostname
-- **Target Directory**: `/public_html/processor-design-tool/`
+- **Target Directory**: `/public_html/cpu/`
 - **Protocol**: FTP/SFTP
 - **Port**: 21 (FTP) / 22 (SFTP)
 
@@ -37,12 +37,12 @@ For manual deployment, you can use:
 npm run build
 
 # Upload dist/ folder to your FTP server
-# Target: /public_html/processor-design-tool/
+# Target: /public_html/cpu/
 ```
 
 ## Directory Structure on Server
 ```
-/public_html/processor-design-tool/
+/public_html/cpu/
 ├── index.html
 ├── assets/
 │   ├── index-[hash].css
@@ -55,7 +55,7 @@ npm run build
 - **NODE_ENV**: `production` for optimized builds
 - **BUILD_DATE**: Automatically set during CI/CD
 - **COMMIT_HASH**: Current Git commit SHA
-- **DEPLOY_URL**: `https://florian-hunter.de/processor-design-tool/`
+- **DEPLOY_URL**: `https://florian-hunter.de/cpu/`
 
 ## Monitoring & Logs
 - GitHub Actions logs available in repository Actions tab

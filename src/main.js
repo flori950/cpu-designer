@@ -1,4 +1,4 @@
-import './style.css'
+import './style.css';
 
 // Processor Design Tool
 class ProcessorDesignTool {
@@ -289,7 +289,7 @@ class ProcessorDesignTool {
     }
   }
 
-  handleMouseUp(e) {
+  handleMouseUp(_e) {
     if (this.draggedComponent) {
       this.saveSessionData();
     }
@@ -548,20 +548,20 @@ class ProcessorDesignTool {
     const operation = parts[0];
     
     switch (operation) {
-      case 'ADD':
-        return `Adding ${parts[1]} and ${parts[2]} → Result stored in ALU`;
-      case 'LOAD':
-        return `Loading data from memory address ${parts[1]} → Register`;
-      case 'STORE':
-        return `Storing ${parts[1]} to memory address ${parts[2]}`;
-      case 'MOV':
-        return `Moving data from ${parts[1]} to ${parts[2]}`;
-      case 'CACHE':
-        return `Cache operation: ${parts[1]} → ${parts[2] || 'Hit/Miss check'}`;
-      case 'INT':
-        return `Interrupt ${parts[1]} triggered → Control Unit handling`;
-      default:
-        return `Unknown command: ${operation}`;
+    case 'ADD':
+      return `Adding ${parts[1]} and ${parts[2]} → Result stored in ALU`;
+    case 'LOAD':
+      return `Loading data from memory address ${parts[1]} → Register`;
+    case 'STORE':
+      return `Storing ${parts[1]} to memory address ${parts[2]}`;
+    case 'MOV':
+      return `Moving data from ${parts[1]} to ${parts[2]}`;
+    case 'CACHE':
+      return `Cache operation: ${parts[1]} → ${parts[2] || 'Hit/Miss check'}`;
+    case 'INT':
+      return `Interrupt ${parts[1]} triggered → Control Unit handling`;
+    default:
+      return `Unknown command: ${operation}`;
     }
   }
 
@@ -736,18 +736,18 @@ class ProcessorDesignTool {
     let compiledCode = '';
     
     switch (target) {
-      case 'verilog':
-        compiledCode = this.generateVerilog();
-        break;
-      case 'vhdl':
-        compiledCode = this.generateVHDL();
-        break;
-      case 'assembly':
-        compiledCode = this.generateAssembly();
-        break;
-      case 'json':
-        compiledCode = this.generateJSONDescription();
-        break;
+    case 'verilog':
+      compiledCode = this.generateVerilog();
+      break;
+    case 'vhdl':
+      compiledCode = this.generateVHDL();
+      break;
+    case 'assembly':
+      compiledCode = this.generateAssembly();
+      break;
+    case 'json':
+      compiledCode = this.generateJSONDescription();
+      break;
     }
     
     output.textContent = compiledCode;
@@ -770,8 +770,8 @@ module processor_design (
     // Generate module declarations for each component
     this.components.forEach(comp => {
       switch (comp.type) {
-        case 'alu':
-          verilog += `    // ALU Component
+      case 'alu':
+        verilog += `    // ALU Component
     alu alu_inst (
         .clk(clk),
         .a(alu_input_a),
@@ -780,9 +780,9 @@ module processor_design (
     );
 
 `;
-          break;
-        case 'register':
-          verilog += `    // Register Component
+        break;
+      case 'register':
+        verilog += `    // Register Component
     register reg_inst (
         .clk(clk),
         .reset(reset),
@@ -791,9 +791,9 @@ module processor_design (
     );
 
 `;
-          break;
-        case 'memory':
-          verilog += `    // Memory Component
+        break;
+      case 'memory':
+        verilog += `    // Memory Component
     memory mem_inst (
         .clk(clk),
         .address(mem_address),
@@ -803,7 +803,7 @@ module processor_design (
     );
 
 `;
-          break;
+        break;
       }
     });
 
@@ -881,11 +881,11 @@ main_loop:
   generateJSONDescription() {
     return JSON.stringify({
       metadata: {
-        title: "Processor Design",
-        generator: "Processor Design Tool",
-        author: "florian-hunter.de",
+        title: 'Processor Design',
+        generator: 'Processor Design Tool',
+        author: 'florian-hunter.de',
         generated: new Date().toISOString(),
-        version: "1.0"
+        version: '1.0'
       },
       components: this.components.map(comp => ({
         id: comp.id,
