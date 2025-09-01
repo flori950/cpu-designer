@@ -6,7 +6,7 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./tests/setup.js'],
     coverage: {
-      reporter: ['text', 'json', 'html'],
+      reporter: ['text', 'json', 'html', 'lcov'],
       exclude: [
         'node_modules/',
         'tests/',
