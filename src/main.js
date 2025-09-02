@@ -92,6 +92,27 @@ class ProcessorDesignTool {
       this.canvas.style.cursor = this.connectionMode ? 'crosshair' : 'default';
     });
 
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
+      const navbar = document.querySelector('.navbar-nav');
+      const toggle = document.getElementById('mobile-menu-toggle');
+      navbar.classList.toggle('active');
+      toggle.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const navbar = document.querySelector('.navbar-nav');
+      const toggle = document.getElementById('mobile-menu-toggle');
+      const isClickInsideNav = navbar.contains(e.target);
+      const isToggleClick = toggle.contains(e.target);
+      
+      if (!isClickInsideNav && !isToggleClick && navbar.classList.contains('active')) {
+        navbar.classList.remove('active');
+        toggle.classList.remove('active');
+      }
+    });
+
     // Simulation controls
     document.getElementById('execute-command').addEventListener('click', () => this.executeCommand());
     document.getElementById('command-input').addEventListener('keypress', (e) => {
@@ -289,7 +310,7 @@ class ProcessorDesignTool {
     }
   }
 
-  handleMouseUp(_e) {
+  handleMouseUp(e) {
     if (this.draggedComponent) {
       this.saveSessionData();
     }
