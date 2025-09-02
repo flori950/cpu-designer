@@ -15,7 +15,7 @@
   --success-color: #22c55e;
   --warning-color: #f59e0b;
   --error-color: #ef4444;
-  
+
   /* Spacing */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -23,7 +23,7 @@
   --space-lg: 1.5rem;
   --space-xl: 2rem;
   --space-2xl: 3rem;
-  
+
   /* Typography */
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -31,19 +31,19 @@
   --font-size-lg: 1.125rem;
   --font-size-xl: 1.25rem;
   --font-size-2xl: 1.5rem;
-  
+
   /* Layout */
   --navbar-height: 60px;
   --component-bar-height: 80px;
   --terminal-height: 200px;
   --footer-height: 60px;
-  
+
   /* Border Radius */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -59,8 +59,14 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 100%);
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
+  background: linear-gradient(
+    135deg,
+    var(--background-primary) 0%,
+    var(--background-secondary) 100%
+  );
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
@@ -101,7 +107,11 @@ body {
 .navbar-brand h1 {
   font-size: var(--font-size-xl);
   font-weight: 700;
-  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--accent-color)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -241,15 +251,21 @@ body {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   cursor: grab;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   font-size: var(--font-size-sm);
   color: var(--text-primary);
   user-select: none;
-  
+
   /* Mobile touch improvements */
   touch-action: manipulation; /* Allow only standard touch gestures */
   -webkit-touch-callout: none; /* Prevent iOS callout */
   -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+  -webkit-user-drag: none; /* Prevent webkit drag */
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  position: relative;
+  z-index: 1;
 }
 
 .component-item:hover {
@@ -285,7 +301,7 @@ body {
   height: 100%;
   cursor: crosshair;
   border-radius: var(--radius-lg);
-  
+
   /* Mobile touch improvements */
   touch-action: none; /* Prevent default touch behaviors like scrolling/zooming */
   -webkit-touch-callout: none; /* Prevent iOS callout */
@@ -293,6 +309,9 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+  position: relative;
+  z-index: 10;
 }
 
 .canvas-overlay {
@@ -313,7 +332,7 @@ body {
   backdrop-filter: blur(10px);
 }
 
-.connection-mode-toggle input[type="checkbox"] {
+.connection-mode-toggle input[type='checkbox'] {
   margin: 0;
 }
 
@@ -657,11 +676,11 @@ body {
   .navbar {
     padding: 0 var(--space-md);
   }
-  
+
   .canvas-container {
     margin: var(--space-md);
   }
-  
+
   .component-bar-container {
     padding: 0 var(--space-md);
   }
@@ -680,24 +699,24 @@ body {
     padding: var(--space-md);
     gap: var(--space-sm);
   }
-  
+
   .navbar-nav.active {
     display: flex;
   }
-  
+
   .mobile-menu-toggle {
     display: flex;
   }
-  
+
   .nav-btn {
     width: 100%;
     justify-content: center;
   }
-  
+
   .btn-text {
     display: inline;
   }
-  
+
   .component-bar {
     padding: var(--space-sm) var(--space-md);
   }
@@ -709,38 +728,38 @@ body {
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   .component-group {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-xs);
   }
-  
+
   .group-label {
     margin-right: 0;
     margin-bottom: var(--space-xs);
   }
-  
+
   .canvas-container {
     margin: var(--space-sm);
     min-height: 300px;
   }
-  
+
   .simulation-controls {
     flex-direction: column;
     gap: var(--space-sm);
   }
-  
+
   .footer-content {
     flex-direction: column;
     text-align: center;
     gap: var(--space-md);
   }
-  
+
   .footer-right {
     text-align: center;
   }
-  
+
   .social-links {
     justify-content: center;
   }
@@ -750,34 +769,34 @@ body {
   .navbar {
     padding: 0 var(--space-sm);
   }
-  
+
   .navbar-brand h1 {
     font-size: var(--font-size-lg);
   }
-  
+
   .component-item {
     padding: var(--space-xs) var(--space-sm);
     font-size: var(--font-size-xs);
   }
-  
+
   .component-icon {
     font-size: var(--font-size-base);
   }
-  
+
   .terminal-section {
     min-height: 150px;
   }
-  
+
   .terminal-output {
     min-height: 80px;
     font-size: var(--font-size-xs);
   }
-  
+
   .canvas-overlay {
     top: var(--space-sm);
     right: var(--space-sm);
   }
-  
+
   .connection-mode-toggle {
     padding: var(--space-xs) var(--space-sm);
     font-size: var(--font-size-xs);
@@ -851,7 +870,7 @@ body {
   .footer {
     display: none;
   }
-  
+
   .canvas-container {
     margin: 0;
     border: none;
@@ -1021,7 +1040,8 @@ body {
   margin: 0 auto;
 }
 
-.footer-left, .footer-right {
+.footer-left,
+.footer-right {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -1210,7 +1230,8 @@ body {
   margin-bottom: 1.5rem;
 }
 
-#close-validation, #close-compilation {
+#close-validation,
+#close-compilation {
   padding: 0.5rem 1.5rem;
   background-color: #646cff;
   color: white;
@@ -1220,7 +1241,8 @@ body {
   float: right;
 }
 
-#close-validation:hover, #close-compilation:hover {
+#close-validation:hover,
+#close-compilation:hover {
   background-color: #535bf2;
 }
 
@@ -1244,17 +1266,18 @@ body {
     text-align: center;
     gap: 1rem;
   }
-  
+
   .footer-right {
     text-align: center;
   }
-  
-  .validation-panel, .compilation-panel {
+
+  .validation-panel,
+  .compilation-panel {
     width: 90vw;
     max-width: none;
     margin: 1rem;
   }
-  
+
   .compilation-options {
     flex-direction: column;
     align-items: stretch;
