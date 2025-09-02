@@ -4,52 +4,81 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/cpu-icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CPU Designer - Visual Processor Architecture Tool | cpu.florian-hunter.de</title>
-    
+    <title>
+      CPU Designer - Visual Processor Architecture Tool | cpu.florian-hunter.de
+    </title>
+
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Professional visual CPU design tool for creating processor architectures with drag-and-drop components. Design ALU, memory, registers, and control units with interactive simulation and code generation.">
-    <meta name="keywords" content="CPU designer, processor design, computer architecture, visual design tool, CPU simulation, ALU design, memory architecture, digital circuits, VHDL, Verilog">
-    <meta name="author" content="Florian Jäger - florian-hunter.de">
-    <meta name="robots" content="index, follow">
-    
+    <meta
+      name="description"
+      content="Professional visual CPU design tool for creating processor architectures with drag-and-drop components. Design ALU, memory, registers, and control units with interactive simulation and code generation."
+    />
+    <meta
+      name="keywords"
+      content="CPU designer, processor design, computer architecture, visual design tool, CPU simulation, ALU design, memory architecture, digital circuits, VHDL, Verilog"
+    />
+    <meta name="author" content="Florian Jäger - florian-hunter.de" />
+    <meta name="robots" content="index, follow" />
+
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://cpu.florian-hunter.de/">
-    <meta property="og:title" content="CPU Designer - Visual Processor Architecture Tool">
-    <meta property="og:description" content="Professional visual CPU design tool for creating processor architectures with drag-and-drop components, simulation, and code generation.">
-    <meta property="og:image" content="https://cpu.florian-hunter.de/cpu-icon.svg">
-    <meta property="og:site_name" content="Florian Jäger - Software Development">
-    
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cpu.florian-hunter.de/" />
+    <meta
+      property="og:title"
+      content="CPU Designer - Visual Processor Architecture Tool"
+    />
+    <meta
+      property="og:description"
+      content="Professional visual CPU design tool for creating processor architectures with drag-and-drop components, simulation, and code generation."
+    />
+    <meta
+      property="og:image"
+      content="https://cpu.florian-hunter.de/cpu-icon.svg"
+    />
+    <meta
+      property="og:site_name"
+      content="Florian Jäger - Software Development"
+    />
+
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://cpu.florian-hunter.de/">
-    <meta property="twitter:title" content="CPU Designer - Visual Processor Architecture Tool">
-    <meta property="twitter:description" content="Professional visual CPU design tool with simulation and code generation capabilities.">
-    <meta property="twitter:image" content="https://cpu.florian-hunter.de/cpu-icon.svg">
-    
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://cpu.florian-hunter.de/" />
+    <meta
+      property="twitter:title"
+      content="CPU Designer - Visual Processor Architecture Tool"
+    />
+    <meta
+      property="twitter:description"
+      content="Professional visual CPU design tool with simulation and code generation capabilities."
+    />
+    <meta
+      property="twitter:image"
+      content="https://cpu.florian-hunter.de/cpu-icon.svg"
+    />
+
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://cpu.florian-hunter.de/">
-    
+    <link rel="canonical" href="https://cpu.florian-hunter.de/" />
+
     <!-- Schema.org markup -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "CPU Designer",
-      "description": "Professional visual CPU design tool for creating processor architectures with drag-and-drop components, simulation, and code generation",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web Browser",
-      "author": {
-        "@type": "Person",
-        "name": "Florian Jäger",
-        "url": "https://florian-hunter.de",
-        "sameAs": [
-          "https://github.com/flori950",
-          "https://www.linkedin.com/in/florian-jager/"
-        ]
-      },
-      "url": "https://cpu.florian-hunter.de/"
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "CPU Designer",
+        "description": "Professional visual CPU design tool for creating processor architectures with drag-and-drop components, simulation, and code generation",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web Browser",
+        "author": {
+          "@type": "Person",
+          "name": "Florian Jäger",
+          "url": "https://florian-hunter.de",
+          "sameAs": [
+            "https://github.com/flori950",
+            "https://www.linkedin.com/in/florian-jager/"
+          ]
+        },
+        "url": "https://cpu.florian-hunter.de/"
+      }
     </script>
   </head>
   <body>
@@ -60,7 +89,7 @@
           <div class="brand-icon">🔧</div>
           <h1>CPU Designer</h1>
         </div>
-        
+
         <nav class="navbar-nav">
           <button class="nav-btn" id="load-example">
             <span class="btn-icon">📚</span>
@@ -91,7 +120,7 @@
             <span class="btn-text">Clear</span>
           </button>
         </nav>
-        
+
         <button class="mobile-menu-toggle" id="mobile-menu-toggle">
           <span></span>
           <span></span>
@@ -108,31 +137,51 @@
               <div class="component-icon">🧮</div>
               <span>ALU</span>
             </div>
-            <div class="component-item" draggable="true" data-component="register">
+            <div
+              class="component-item"
+              draggable="true"
+              data-component="register"
+            >
               <div class="component-icon">📝</div>
               <span>Register</span>
             </div>
-            <div class="component-item" draggable="true" data-component="memory">
+            <div
+              class="component-item"
+              draggable="true"
+              data-component="memory"
+            >
               <div class="component-icon">💾</div>
               <span>Memory</span>
             </div>
-            <div class="component-item" draggable="true" data-component="control-unit">
+            <div
+              class="component-item"
+              draggable="true"
+              data-component="control-unit"
+            >
               <div class="component-icon">🎛️</div>
               <span>Control</span>
             </div>
           </div>
-          
+
           <div class="component-group">
             <span class="group-label">Advanced:</span>
             <div class="component-item" draggable="true" data-component="cache">
               <div class="component-icon">⚡</div>
               <span>Cache</span>
             </div>
-            <div class="component-item" draggable="true" data-component="decoder">
+            <div
+              class="component-item"
+              draggable="true"
+              data-component="decoder"
+            >
               <div class="component-icon">🔍</div>
               <span>Decoder</span>
             </div>
-            <div class="component-item" draggable="true" data-component="multiplexer">
+            <div
+              class="component-item"
+              draggable="true"
+              data-component="multiplexer"
+            >
               <div class="component-icon">🔀</div>
               <span>Mux</span>
             </div>
@@ -145,18 +194,30 @@
               <span>Clock</span>
             </div>
           </div>
-          
+
           <div class="component-group">
             <span class="group-label">I/O:</span>
-            <div class="component-item" draggable="true" data-component="input-port">
+            <div
+              class="component-item"
+              draggable="true"
+              data-component="input-port"
+            >
               <div class="component-icon">📥</div>
               <span>Input</span>
             </div>
-            <div class="component-item" draggable="true" data-component="output-port">
+            <div
+              class="component-item"
+              draggable="true"
+              data-component="output-port"
+            >
               <div class="component-icon">📤</div>
               <span>Output</span>
             </div>
-            <div class="component-item" draggable="true" data-component="interrupt">
+            <div
+              class="component-item"
+              draggable="true"
+              data-component="interrupt"
+            >
               <div class="component-icon">⚠️</div>
               <span>Int</span>
             </div>
@@ -164,12 +225,28 @@
         </div>
       </section>
 
+      <!-- Mobile Instructions Banner -->
+      <div class="mobile-instructions" id="mobile-instructions">
+        <div class="mobile-instructions-content">
+          <span class="mobile-instructions-icon">📱</span>
+          <span class="mobile-instructions-text"
+            >On mobile: Tap any component above to add it to the canvas!</span
+          >
+          <button
+            class="mobile-instructions-close"
+            id="close-mobile-instructions"
+          >
+            ×
+          </button>
+        </div>
+      </div>
+
       <!-- Main Canvas Area -->
       <main class="canvas-container">
         <canvas id="design-canvas" width="1200" height="600"></canvas>
         <div class="canvas-overlay">
           <div class="connection-mode-toggle">
-            <input type="checkbox" id="connection-mode">
+            <input type="checkbox" id="connection-mode" />
             <label for="connection-mode">Connection Mode</label>
           </div>
         </div>
@@ -180,7 +257,11 @@
           <h3>🚀 Simulation Terminal</h3>
         </div>
         <div class="simulation-controls">
-          <input type="text" id="command-input" placeholder="Enter command (e.g., ADD R1, R2)">
+          <input
+            type="text"
+            id="command-input"
+            placeholder="Enter command (e.g., ADD R1, R2)"
+          />
           <button id="execute-command">Execute</button>
         </div>
         <div id="simulation-output" class="terminal-output"></div>
@@ -194,7 +275,7 @@
           <button id="close-validation" class="modal-close">Close</button>
         </div>
       </div>
-      
+
       <div id="compilation-panel" class="modal hidden">
         <div class="modal-content">
           <h3>Design Compilation</h3>
@@ -211,7 +292,7 @@
           <button id="close-compilation" class="modal-close">Close</button>
         </div>
       </div>
-      
+
       <div id="example-modal" class="modal hidden">
         <div class="modal-content">
           <h3>Load Example CPU</h3>
@@ -226,7 +307,9 @@
             </div>
             <div class="example-item" data-example="pipelined-cpu">
               <h4>Pipelined CPU</h4>
-              <p>5-stage pipeline with fetch, decode, execute, memory, writeback</p>
+              <p>
+                5-stage pipeline with fetch, decode, execute, memory, writeback
+              </p>
             </div>
             <div class="example-item" data-example="microcontroller">
               <h4>Microcontroller</h4>
@@ -236,34 +319,56 @@
           <button id="close-examples" class="modal-close">Close</button>
         </div>
       </div>
-      
+
       <!-- Hidden file input -->
-      <input type="file" id="design-file-input" accept=".json" style="display: none;">
+      <input
+        type="file"
+        id="design-file-input"
+        accept=".json"
+        style="display: none"
+      />
     </div>
-    
+
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-left">
           <p>Created by <strong>Florian Jäger</strong></p>
           <div class="social-links">
-            <a href="https://www.linkedin.com/in/florian-jager/" target="_blank" rel="noopener" class="social-link">
+            <a
+              href="https://www.linkedin.com/in/florian-jager/"
+              target="_blank"
+              rel="noopener"
+              class="social-link"
+            >
               <span class="social-icon">💼</span>
               LinkedIn
             </a>
-            <a href="https://github.com/flori950" target="_blank" rel="noopener" class="social-link">
+            <a
+              href="https://github.com/flori950"
+              target="_blank"
+              rel="noopener"
+              class="social-link"
+            >
               <span class="social-icon">🐙</span>
               GitHub
             </a>
           </div>
         </div>
         <div class="footer-right">
-          <p><a href="https://cpu.florian-hunter.de" target="_blank" rel="noopener">cpu.florian-hunter.de</a></p>
+          <p>
+            <a
+              href="https://cpu.florian-hunter.de"
+              target="_blank"
+              rel="noopener"
+              >cpu.florian-hunter.de</a
+            >
+          </p>
           <p>&copy; 2025 Florian Jäger</p>
         </div>
       </div>
     </footer>
-    
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

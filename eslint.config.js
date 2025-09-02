@@ -16,32 +16,34 @@ export default [
         clearTimeout: 'readonly',
         clearInterval: 'readonly',
         sessionStorage: 'readonly',
+        localStorage: 'readonly',
+        Storage: 'readonly',
         Blob: 'readonly',
         URL: 'readonly',
         FileReader: 'readonly',
-        
+
         // Node.js globals
         process: 'readonly',
         Buffer: 'readonly',
         __dirname: 'readonly',
         __filename: 'readonly',
-        
+
         // Test globals
         describe: 'readonly',
         it: 'readonly',
         expect: 'readonly',
         beforeEach: 'readonly',
         afterEach: 'readonly',
-        vi: 'readonly'
-      }
+        vi: 'readonly',
+      },
     },
     rules: {
-      'indent': ['error', 2],
+      indent: ['error', 2],
       'linebreak-style': 'off',
-      'quotes': ['error', 'single'],
-      'semi': ['error', 'always'],
-      'no-unused-vars': ['warn', { 'argsIgnorePattern': '^_' }],
+      quotes: ['error', 'single'],
+      semi: ['error', 'always'],
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       'no-console': 'off',
-    }
-  }
+    },
+  },
 ];

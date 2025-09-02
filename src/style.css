@@ -280,8 +280,96 @@ body {
   transform: scale(0.95);
 }
 
+/* Mobile tap-to-add indicator */
+@media (max-width: 768px) {
+  .component-item::after {
+    content: '👆 Tap to add';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .component-item:hover::after {
+    opacity: 1;
+  }
+
+  /* Make component items more touch-friendly on mobile */
+  .component-item {
+    padding: var(--space-md);
+    margin-bottom: var(--space-sm);
+    min-height: 44px; /* iOS minimum touch target */
+  }
+}
+
 .component-icon {
   font-size: var(--font-size-lg);
+}
+
+/* Mobile Instructions Banner */
+.mobile-instructions {
+  display: none;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--accent-color)
+  );
+  color: white;
+  padding: var(--space-sm) var(--space-md);
+  position: sticky;
+  top: var(--navbar-height);
+  z-index: 50;
+  box-shadow: var(--shadow-md);
+}
+
+.mobile-instructions-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.mobile-instructions-icon {
+  font-size: var(--font-size-lg);
+}
+
+.mobile-instructions-text {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-align: center;
+  flex: 1;
+}
+
+.mobile-instructions-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: var(--font-size-xl);
+  cursor: pointer;
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s ease;
+  position: absolute;
+  right: 0;
+}
+
+.mobile-instructions-close:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .mobile-instructions {
+    display: block;
+  }
 }
 
 /* Canvas Container Styles */

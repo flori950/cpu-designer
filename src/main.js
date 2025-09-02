@@ -18,6 +18,7 @@ class ProcessorDesignTool {
     this.setupEventListeners();
     this.loadSessionData();
     this.setupMobileDebug();
+    this.checkMobileInstructions();
   }
 
   initializeCanvas() {
@@ -43,38 +44,25 @@ class ProcessorDesignTool {
         e.dataTransfer.setData('text/plain', item.dataset.component);
       });
 
-      // Mobile touch events for drag and drop
+      // Simple mobile tap-to-add functionality
       item.addEventListener('touchstart', (e) => {
         e.preventDefault();
         e.stopPropagation();
+
         this.touchDragData = {
           componentType: item.dataset.component,
           startTime: Date.now(),
-          startX: e.touches[0].clientX,
-          startY: e.touches[0].clientY,
           element: item,
+          isTap: true,
         };
-        item.style.opacity = '0.5';
-        item.style.transform = 'scale(1.1)';
+
+        // Visual feedback for tap
+        item.style.opacity = '0.7';
+        item.style.transform = 'scale(0.95)';
+
         this.debugLog(
-          `Touch start on ${item.dataset.component} at (${e.touches[0].clientX}, ${e.touches[0].clientY})`
+          `Touch start on ${item.dataset.component} - preparing for tap-to-add`
         );
-      });
-
-      item.addEventListener('touchmove', (e) => {
-        if (this.touchDragData && this.touchDragData.element === item) {
-          e.preventDefault();
-          e.stopPropagation();
-          // Provide visual feedback that drag is happening
-          const deltaX = e.touches[0].clientX - this.touchDragData.startX;
-          const deltaY = e.touches[0].clientY - this.touchDragData.startY;
-          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-          if (distance > 10) {
-            item.style.transform = 'scale(1.1) translateZ(0)';
-            item.style.zIndex = '1000';
-          }
-        }
       });
 
       item.addEventListener('touchend', (e) => {
@@ -82,45 +70,18 @@ class ProcessorDesignTool {
           e.preventDefault();
           e.stopPropagation();
 
-          // Check if the touch ended over the canvas
-          const touch = e.changedTouches[0];
-          const elementAtPoint = document.elementFromPoint(
-            touch.clientX,
-            touch.clientY
-          );
+          // Check if this was a quick tap (not a long press or drag)
+          const touchDuration = Date.now() - this.touchDragData.startTime;
 
-          this.debugLog(
-            `Touch end on ${item.dataset.component} at (${touch.clientX}, ${touch.clientY}), element at point: ${elementAtPoint?.tagName || 'none'}`
-          );
-
-          if (
-            elementAtPoint === this.canvas ||
-            this.canvas.contains(elementAtPoint)
-          ) {
-            // Touch ended on canvas - add component
-            const rect = this.canvas.getBoundingClientRect();
-            const x = touch.clientX - rect.left;
-            const y = touch.clientY - rect.top;
-
-            // Check if this was a drag operation (moved at least 10px)
-            const deltaX = touch.clientX - this.touchDragData.startX;
-            const deltaY = touch.clientY - this.touchDragData.startY;
-            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
+          if (touchDuration < 500 && this.touchDragData.isTap) {
+            // Add component to canvas at a smart position
+            this.addComponentToCanvas(this.touchDragData.componentType);
             this.debugLog(
-              `Distance moved: ${distance.toFixed(1)}px, adding component to canvas at (${x.toFixed(1)}, ${y.toFixed(1)})`
-            );
-
-            if (distance > 10) {
-              this.addComponent(this.touchDragData.componentType, x, y);
-            }
-          } else {
-            this.debugLog(
-              `Touch ended outside canvas on: ${elementAtPoint?.tagName || 'unknown'}`
+              `Tap-to-add: Added ${this.touchDragData.componentType} to canvas`
             );
           }
 
-          // Reset styles
+          // Reset visual feedback
           item.style.opacity = '1';
           item.style.transform = 'scale(1)';
           item.style.zIndex = '';
@@ -129,7 +90,7 @@ class ProcessorDesignTool {
       });
 
       // Handle touch cancel
-      item.addEventListener('touchcancel', (e) => {
+      item.addEventListener('touchcancel', (_e) => {
         if (this.touchDragData && this.touchDragData.element === item) {
           item.style.opacity = '1';
           item.style.transform = 'scale(1)';
@@ -230,6 +191,18 @@ class ProcessorDesignTool {
         toggle.classList.toggle('active');
       });
 
+    // Close mobile instructions banner
+    document
+      .getElementById('close-mobile-instructions')
+      ?.addEventListener('click', () => {
+        const banner = document.getElementById('mobile-instructions');
+        banner.style.display = 'none';
+        // Save preference in localStorage
+        if (typeof Storage !== 'undefined') {
+          localStorage.setItem('hideMobileInstructions', 'true');
+        }
+      });
+
     // Close mobile menu when clicking outside
     document.addEventListener('click', (e) => {
       const navbar = document.querySelector('.navbar-nav');
@@ -304,6 +277,64 @@ class ProcessorDesignTool {
     this.components.push(component);
     this.redraw();
     this.saveSessionData();
+  }
+
+  // Smart component placement for mobile tap-to-add
+  addComponentToCanvas(type) {
+    // Find a good position to place the component
+    const canvasWidth = this.canvas.width;
+    const canvasHeight = this.canvas.height;
+
+    // Start with center-ish position
+    let x = canvasWidth / 2;
+    let y = canvasHeight / 2;
+
+    // If there are existing components, try to place it in an empty area
+    if (this.components.length > 0) {
+      // Try different positions in a spiral pattern
+      const positions = [
+        { x: canvasWidth * 0.3, y: canvasHeight * 0.3 },
+        { x: canvasWidth * 0.7, y: canvasHeight * 0.3 },
+        { x: canvasWidth * 0.3, y: canvasHeight * 0.7 },
+        { x: canvasWidth * 0.7, y: canvasHeight * 0.7 },
+        { x: canvasWidth * 0.5, y: canvasHeight * 0.2 },
+        { x: canvasWidth * 0.2, y: canvasHeight * 0.5 },
+        { x: canvasWidth * 0.8, y: canvasHeight * 0.5 },
+        { x: canvasWidth * 0.5, y: canvasHeight * 0.8 },
+      ];
+
+      // Find the first position that doesn't overlap with existing components
+      for (const pos of positions) {
+        const hasOverlap = this.components.some((comp) => {
+          const dx = Math.abs(comp.x - (pos.x - 50));
+          const dy = Math.abs(comp.y - (pos.y - 30));
+          return dx < 120 && dy < 80; // Components are 100x60, add padding
+        });
+
+        if (!hasOverlap) {
+          x = pos.x;
+          y = pos.y;
+          break;
+        }
+      }
+    }
+
+    // Make sure the component stays within canvas bounds
+    x = Math.max(60, Math.min(canvasWidth - 60, x));
+    y = Math.max(40, Math.min(canvasHeight - 40, y));
+
+    this.debugLog(
+      `Adding ${type} to canvas at smart position (${x.toFixed(1)}, ${y.toFixed(1)})`
+    );
+
+    // Use the existing addComponent method
+    this.addComponent(type, x, y);
+
+    // Show a brief notification
+    this.showNotification(
+      `Added ${type.replace('-', ' ').toUpperCase()} to canvas`,
+      'success'
+    );
   }
 
   getConnectionPoints(type) {
@@ -1964,6 +1995,22 @@ main_loop:
         debugLog.scrollTop = debugLog.scrollHeight;
       }
       console.log('[Mobile Debug]', message);
+    }
+  }
+
+  checkMobileInstructions() {
+    // Check if user is on mobile and hasn't dismissed the instructions
+    const isMobile = window.innerWidth <= 768;
+    const hasHidden =
+      typeof Storage !== 'undefined'
+        ? localStorage.getItem('hideMobileInstructions') === 'true'
+        : false;
+    const banner = document.getElementById('mobile-instructions');
+
+    if (isMobile && !hasHidden && banner) {
+      banner.style.display = 'block';
+    } else if (banner) {
+      banner.style.display = 'none';
     }
   }
 }
