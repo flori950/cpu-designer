@@ -1,0 +1,45 @@
+name: Quick Check
+
+on:
+  push:
+    branches: [ develop, feature/*, fix/* ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  quick-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        registry-url: 'https://registry.npmjs.org'
+        
+    - name: Configure npm for faster installs
+      run: |
+        npm config set fetch-retry-mintimeout 20000
+        npm config set fetch-retry-maxtimeout 120000
+        npm config set fetch-retries 3
+        npm config set fetch-timeout 300000
+        
+    - name: Install dependencies
+      run: npm ci --prefer-offline --no-audit --progress=false
+      
+    - name: Run linting
+      run: npm run lint
+      
+    - name: Run build
+      run: npm run build
+      
+    - name: Quick validation
+      run: |
+        echo "✅ Build successful"
+        echo "📦 Build size: $(du -sh dist/ | cut -f1)"
+        echo "📄 Files: $(find dist/ -type f | wc -l)"
