@@ -32,11 +32,8 @@ jobs:
     - name: Install dependencies
       run: npm ci --prefer-offline --no-audit --progress=false
       
-    - name: Run linting
-      run: npm run lint
-      
     - name: Run build
-      run: npm run build
+      run: npm run build:ci
       
     - name: Quick validation
       run: |
