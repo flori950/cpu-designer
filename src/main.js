@@ -310,7 +310,7 @@ class ProcessorDesignTool {
     }
   }
 
-  handleMouseUp(e) {
+  handleMouseUp(_e) {
     if (this.draggedComponent) {
       this.saveSessionData();
     }
