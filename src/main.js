@@ -11,6 +11,7 @@ class ProcessorDesignTool {
     this.draggedComponent = null;
     this.connectionMode = false;
     this.connectionStart = null;
+    this.touchDragData = null; // For mobile drag and drop
     
     this.initializeCanvas();
     this.setupEventListeners();
@@ -35,8 +36,25 @@ class ProcessorDesignTool {
     // Drag and Drop from palette
     const paletteItems = document.querySelectorAll('.component-item');
     paletteItems.forEach(item => {
+      // Desktop drag and drop
       item.addEventListener('dragstart', (e) => {
         e.dataTransfer.setData('text/plain', item.dataset.component);
+      });
+
+      // Mobile touch events for drag and drop
+      item.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        this.touchDragData = {
+          componentType: item.dataset.component,
+          startTime: Date.now()
+        };
+        item.style.opacity = '0.5';
+      });
+
+      item.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        item.style.opacity = '1';
+        this.touchDragData = null;
       });
     });
 
@@ -51,10 +69,40 @@ class ProcessorDesignTool {
       this.addComponent(componentType, x, y);
     });
 
+    // Mobile touch drop handling on canvas
+    this.canvas.addEventListener('touchend', (e) => {
+      if (this.touchDragData) {
+        e.preventDefault();
+        const touch = e.changedTouches[0];
+        const rect = this.canvas.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        
+        // Check if this was a drag operation (not just a tap)
+        const dragDuration = Date.now() - this.touchDragData.startTime;
+        if (dragDuration > 100) { // Minimum drag duration
+          this.addComponent(this.touchDragData.componentType, x, y);
+        }
+        
+        // Reset palette item opacity
+        const paletteItems = document.querySelectorAll('.component-item');
+        paletteItems.forEach(item => {
+          item.style.opacity = '1';
+        });
+        
+        this.touchDragData = null;
+      }
+    });
+
     // Canvas interaction
     this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e));
     this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
     this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e));
+
+    // Touch events for canvas interaction (component movement)
+    this.canvas.addEventListener('touchstart', (e) => this.handleTouchStart(e));
+    this.canvas.addEventListener('touchmove', (e) => this.handleTouchMove(e));
+    this.canvas.addEventListener('touchend', (e) => this.handleTouchEnd(e));
 
     // Toolbar buttons
     document.getElementById('clear-canvas').addEventListener('click', () => this.clearCanvas());
@@ -311,6 +359,65 @@ class ProcessorDesignTool {
   }
 
   handleMouseUp(_e) {
+    if (this.draggedComponent) {
+      this.saveSessionData();
+    }
+    this.draggedComponent = null;
+  }
+
+  // Touch event handlers for mobile support
+  handleTouchStart(e) {
+    // Prevent default to avoid scrolling and zooming
+    e.preventDefault();
+    
+    // Don't handle if this is a drag from palette
+    if (this.touchDragData) {
+      return;
+    }
+
+    const touch = e.touches[0];
+    const rect = this.canvas.getBoundingClientRect();
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+
+    if (this.connectionMode) {
+      this.handleConnectionClick(x, y);
+    } else {
+      const component = this.getComponentAt(x, y);
+      if (component) {
+        this.selectedComponent = component;
+        this.draggedComponent = component;
+        this.dragOffset = { x: x - component.x, y: y - component.y };
+      } else {
+        this.selectedComponent = null;
+      }
+      this.redraw();
+    }
+  }
+
+  handleTouchMove(e) {
+    e.preventDefault();
+    
+    if (this.draggedComponent && e.touches.length === 1) {
+      const touch = e.touches[0];
+      const rect = this.canvas.getBoundingClientRect();
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+      
+      this.draggedComponent.x = x - this.dragOffset.x;
+      this.draggedComponent.y = y - this.dragOffset.y;
+      this.redraw();
+    }
+  }
+
+  handleTouchEnd(e) {
+    e.preventDefault();
+    
+    // Don't handle if this is a drag from palette (handled elsewhere)
+    if (this.touchDragData) {
+      return;
+    }
+
     if (this.draggedComponent) {
       this.saveSessionData();
     }

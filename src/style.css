@@ -245,6 +245,11 @@ body {
   font-size: var(--font-size-sm);
   color: var(--text-primary);
   user-select: none;
+  
+  /* Mobile touch improvements */
+  touch-action: manipulation; /* Allow only standard touch gestures */
+  -webkit-touch-callout: none; /* Prevent iOS callout */
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
 }
 
 .component-item:hover {
@@ -280,6 +285,14 @@ body {
   height: 100%;
   cursor: crosshair;
   border-radius: var(--radius-lg);
+  
+  /* Mobile touch improvements */
+  touch-action: none; /* Prevent default touch behaviors like scrolling/zooming */
+  -webkit-touch-callout: none; /* Prevent iOS callout */
+  -webkit-user-select: none; /* Prevent text selection */
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .canvas-overlay {
