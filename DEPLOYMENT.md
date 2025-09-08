@@ -19,9 +19,6 @@ Your FTP username
 ### FTP_PASSWORD
 Your FTP password
 
-### RENOVATE_TOKEN (Optional)
-GitHub Personal Access Token for Renovate dependency updates
-
 ## Deployment Process
 1. **Trigger**: Push to `main` branch
 2. **Build**: Run `npm run build` to create production bundle
