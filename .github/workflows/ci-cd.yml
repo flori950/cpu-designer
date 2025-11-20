@@ -11,18 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-    
     steps:
     - name: Checkout code
       uses: actions/checkout@v5
       
-    - name: Setup Node.js ${{ matrix.node-version }}
+    - name: Setup Node.js 24.x
       uses: actions/setup-node@v6
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '24.x'
         cache: 'npm'
         registry-url: 'https://registry.npmjs.org'
         
@@ -44,7 +40,6 @@ jobs:
       
     - name: Upload test coverage
       uses: codecov/codecov-action@v5
-      if: matrix.node-version == '20.x'
       with:
         file: ./coverage/lcov.info
         fail_ci_if_error: false
@@ -62,7 +57,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v6
       with:
-        node-version: '22.x'
+        node-version: '24.x'
         cache: 'npm'
         registry-url: 'https://registry.npmjs.org'
         

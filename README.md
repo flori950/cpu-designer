@@ -86,8 +86,9 @@ A comprehensive visual processor design tool that allows users to create and val
 ## Getting Started
 
 ### Prerequisites
-- Node.js (v14 or higher)
+- **Node.js v24.0.0 or higher** (required)
 - Modern web browser with HTML5 Canvas support
+- npm (comes with Node.js)
 
 ### Installation
 
@@ -256,7 +257,7 @@ npm run prepare   # Setup pre-commit hooks
 - **Test Execution**: Automated testing before commits
 
 **CI/CD Pipeline:**
-- **Automated Testing**: Multi-node version testing (18.x, 20.x)
+- **Automated Testing**: Node.js 24.x testing
 - **Code Quality**: Linting and formatting validation
 - **Build Verification**: Production build testing
 - **FTP Deployment**: Automatic deployment to florian-hunter.de
