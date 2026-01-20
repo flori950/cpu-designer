@@ -82,7 +82,7 @@ jobs:
         echo "Author: florian-hunter.de" >> dist/build-info.txt
         
     - name: Deploy to SFTP Server
-      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.6
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
