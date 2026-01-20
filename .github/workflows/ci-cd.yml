@@ -81,21 +81,16 @@ jobs:
         echo "Branch: ${{ github.ref_name }}" >> dist/build-info.txt
         echo "Author: florian-hunter.de" >> dist/build-info.txt
         
-    - name: Deploy to FTP Server
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+    - name: Deploy to SFTP Server
+      uses: wlixcc/SFTP-Deploy-Action@v1.2.4
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./dist/
-        server-dir: /cpu/
-        timeout: 60000
-        exclude: |
-          **/.git*
-          **/.git*/**
-          **/node_modules/**
-          **/.DS_Store
-          **/Thumbs.db
+        local_path: './dist/*'
+        remote_path: '/cpu/'
+        sftp_only: true
+        delete_remote_files: false
         
     - name: Create deployment notification
       if: success()
