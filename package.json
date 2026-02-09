@@ -28,7 +28,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@vitest/coverage-v8": "^4.0.17",
     "@vitest/ui": "^4.0.17",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "happy-dom": "^20.3.4",
     "husky": "^9.1.7",
     "jsdom": "^27.4.0",
